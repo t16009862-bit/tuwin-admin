@@ -1,7 +1,12 @@
 async function request(url, options = {}) {
+  const adminKey = typeof window !== 'undefined' ? window.sessionStorage.getItem('tuwin_admin_key') : '';
   const res = await fetch(url, {
     ...options,
-    headers: { 'Content-Type': 'application/json', ...options.headers },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(adminKey ? { 'X-Admin-Key': adminKey } : {}),
+      ...options.headers,
+    },
   });
 
   const data = await res.json().catch(() => ({}));
@@ -10,6 +15,26 @@ async function request(url, options = {}) {
   }
   return data;
 }
+
+export function setAdminAccessKey(key) {
+  window.sessionStorage.setItem('tuwin_admin_key', key);
+}
+
+export function clearAdminAccessKey() {
+  window.sessionStorage.removeItem('tuwin_admin_key');
+}
+
+export const verifyAdminAccess = () => request('/api/rankings');
+
+// Shared by the PSA-record and site-music editors. Each resource maps to a
+// dedicated Google Sheet tab through api/_lib/simpleTabs.js.
+export const getSheetResource = (resource) => request(`/api/${resource}`);
+export const addSheetResource = (resource, entry) =>
+  request(`/api/${resource}`, { method: 'POST', body: JSON.stringify(entry) });
+export const updateSheetResource = (resource, row, entry) =>
+  request(`/api/${resource}?row=${row}`, { method: 'PUT', body: JSON.stringify(entry) });
+export const deleteSheetResource = (resource, row) =>
+  request(`/api/${resource}?row=${row}`, { method: 'DELETE' });
 
 // Articles
 export const getArticles = () => request('/api/articles');

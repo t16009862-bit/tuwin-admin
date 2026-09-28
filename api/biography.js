@@ -1,5 +1,6 @@
 const { fetchWorkbook, getSheetRows, SHEET_ID } = require('./_lib/sheet');
 const { getSheetsClient, getTabId } = require('./_lib/sheetsClient');
+const { requireAdmin } = require('./_lib/auth');
 
 // Sheet name is spelled "Biograpahy" in the real spreadsheet.
 const SHEET_NAME = 'Biograpahy';
@@ -17,6 +18,7 @@ function sectionFromRow(row) {
 }
 
 module.exports = async function handler(req, res) {
+  if (!requireAdmin(req, res)) return;
   try {
     if (req.method === 'GET') {
       const workbook = await fetchWorkbook();

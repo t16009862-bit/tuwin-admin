@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom';
+import { clearAdminAccessKey } from '../api/client';
 import './Layout.css';
 
 export default function Layout() {
@@ -24,6 +25,12 @@ export default function Layout() {
           </NavLink>
           <NavLink to="/rankings" className={({ isActive }) => (isActive ? 'active' : '')}>
             Rankings
+          </NavLink>
+          <NavLink to="/ranking-records" className={({ isActive }) => (isActive ? 'active' : '')}>
+            PSA Records
+          </NavLink>
+          <NavLink to="/site-music" className={({ isActive }) => (isActive ? 'active' : '')}>
+            Site Music
           </NavLink>
           <NavLink to="/upcoming" className={({ isActive }) => (isActive ? 'active' : '')}>
             Upcoming
@@ -58,6 +65,16 @@ export default function Layout() {
           >
             Open Google Sheet ↗
           </a>
+          <button
+            type="button"
+            className="sidebar-signout"
+            onClick={() => {
+              clearAdminAccessKey();
+              window.location.reload();
+            }}
+          >
+            Sign out
+          </button>
         </div>
       </aside>
       <main className="content">

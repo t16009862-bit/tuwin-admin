@@ -66,6 +66,23 @@
   color: #fff;
 }
 
+.sidebar-signout {
+  display: block;
+  margin-top: 12px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fca5a5;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sidebar-signout:hover {
+  color: #fff;
+}
+
 .content {
   flex: 1;
   padding: 32px 40px;
@@ -108,6 +125,10 @@
     flex-shrink: 0;
   }
   .sidebar-footer a {
+    white-space: nowrap;
+  }
+  .sidebar-signout {
+    margin-top: 4px;
     white-space: nowrap;
   }
   .content {

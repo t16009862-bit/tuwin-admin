@@ -1,6 +1,7 @@
 const { fetchWorkbook, getSheetRows, SHEET_ID } = require('./_lib/sheet');
 const { getSheetsClient, getTabId } = require('./_lib/sheetsClient');
 const { deleteByUrl } = require('./_lib/cloudinary');
+const { requireAdmin } = require('./_lib/auth');
 
 const SHEET_NAME = 'Coach&Club';
 // The sheet name contains "&", which A1 range notation requires quoting —
@@ -142,6 +143,7 @@ async function writeEntry(sheets, entry, body) {
 }
 
 module.exports = async function handler(req, res) {
+  if (!requireAdmin(req, res)) return;
   try {
     if (req.method === 'GET') {
       const workbook = await fetchWorkbook();

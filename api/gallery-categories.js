@@ -2,6 +2,7 @@ const { getSheetsClient, getTabId } = require('./_lib/sheetsClient');
 const { SHEET_ID } = require('./_lib/sheet');
 const { SHEET_NAME, columnLetter, getLiveCategories } = require('./_lib/galleryColumns');
 const { deleteByUrl } = require('./_lib/cloudinary');
+const { requireAdmin } = require('./_lib/auth');
 
 // Swaps two whole columns (header + every data cell) so reordering doesn't
 // depend on the Sheets API's moveDimension index semantics — just read both
@@ -29,6 +30,7 @@ async function swapColumns(sheets, colA, colB) {
 }
 
 module.exports = async function handler(req, res) {
+  if (!requireAdmin(req, res)) return;
   try {
     if (req.method === 'POST') {
       const name = String(req.body?.name || '').trim();

@@ -9,6 +9,51 @@ const TABS = {
     columns: ['date', 'ranking'],
   }),
 
+  'ranking-summary': createTabHandler({
+    sheetName: 'RankingSummary',
+    columns: [
+      'publishedDate',
+      'recordCheckedDate',
+      'worldRanking',
+      'highestRanking',
+      'totalPoints',
+      'countingPoints',
+      'divisor',
+      'emptyDivisorPlaces',
+      'otherRankingZeros',
+    ],
+  }),
+
+  'tournament-points': createTabHandler({
+    sheetName: 'TournamentPoints',
+    columns: ['date', 'tournament', 'result', 'points', 'expires', 'status'],
+  }),
+
+  'medical-zeros': createTabHandler({
+    sheetName: 'MedicalZeros',
+    columns: ['date', 'tournament', 'expires', 'status'],
+  }),
+
+  'ranking-zeros': createTabHandler({
+    sheetName: 'RankingZeros',
+    columns: ['date', 'tournament', 'reason', 'expires', 'status'],
+  }),
+
+  withdrawals: createTabHandler({
+    sheetName: 'Withdrawals',
+    columns: ['startDate', 'endDate', 'tournament', 'status'],
+  }),
+
+  'match-history': createTabHandler({
+    sheetName: 'MatchHistory',
+    columns: ['date', 'year', 'tournament', 'round', 'opponent', 'score', 'games', 'result'],
+  }),
+
+  'site-music': createTabHandler({
+    sheetName: 'SiteMusic',
+    columns: ['enabled', 'title', 'artist', 'youtubeId'],
+  }),
+
   'career-achievements': createTabHandler({
     sheetName: 'CareerAchievements',
     columns: ['Title', 'heading', 'description', 'footer'],

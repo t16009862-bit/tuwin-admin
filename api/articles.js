@@ -1,5 +1,6 @@
 const { fetchWorkbook, getSheetRows, SHEET_ID } = require('./_lib/sheet');
 const { getSheetsClient, getTabId } = require('./_lib/sheetsClient');
+const { requireAdmin } = require('./_lib/auth');
 
 const SHEET_NAME = 'Articles';
 const COLUMNS = ['category', 'source', 'date', 'title', 'description', 'link_text', 'url'];
@@ -9,6 +10,7 @@ function rowToValues(body) {
 }
 
 module.exports = async function handler(req, res) {
+  if (!requireAdmin(req, res)) return;
   try {
     if (req.method === 'GET') {
       const workbook = await fetchWorkbook();

@@ -1,5 +1,6 @@
 const { fetchWorkbook, getSheetRows, SHEET_ID } = require('./sheet');
 const { getSheetsClient, getTabId } = require('./sheetsClient');
+const { requireAdmin } = require('./auth');
 
 function columnLetter(index) {
   let letter = '';
@@ -24,6 +25,7 @@ function createTabHandler({ sheetName, columns, postProcessRow }) {
   }
 
   return async function handler(req, res) {
+    if (!requireAdmin(req, res)) return;
     try {
       if (req.method === 'GET') {
         const workbook = await fetchWorkbook();

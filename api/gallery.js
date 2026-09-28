@@ -2,6 +2,7 @@ const { fetchWorkbook, getSheetRows, getHeaderRow, SHEET_ID } = require('./_lib/
 const { getSheetsClient } = require('./_lib/sheetsClient');
 const { deleteByUrl } = require('./_lib/cloudinary');
 const { SHEET_NAME, getLiveCategories, resolveColumn } = require('./_lib/galleryColumns');
+const { requireAdmin } = require('./_lib/auth');
 
 async function getColumnValues(sheets, col) {
   const current = await sheets.spreadsheets.values.get({
@@ -55,6 +56,7 @@ async function removeCell(sheets, col, row) {
 }
 
 module.exports = async function handler(req, res) {
+  if (!requireAdmin(req, res)) return;
   try {
     if (req.method === 'GET') {
       const workbook = await fetchWorkbook();

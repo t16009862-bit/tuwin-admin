@@ -7,6 +7,48 @@
   flex-wrap: wrap;
 }
 
+.auth-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #11131c;
+}
+
+.auth-card {
+  width: min(430px, 100%);
+  padding: 32px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}
+
+.auth-card h1 {
+  margin: 6px 0 10px;
+  font-size: 24px;
+}
+
+.auth-card > p:not(.auth-kicker) {
+  margin: 0 0 24px;
+  color: #6b7280;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.auth-kicker {
+  margin: 0;
+  color: #4f46e5;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.auth-submit {
+  width: 100%;
+  justify-content: center;
+}
+
 .page-header h1 {
   font-size: 22px;
   margin: 0;
@@ -168,6 +210,73 @@
   margin-bottom: 16px;
 }
 
+.banner-success,
+.banner-info {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.banner-success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.banner-info {
+  background: #e0f2fe;
+  color: #075985;
+}
+
+.admin-section {
+  margin-top: 28px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.section-heading p {
+  max-width: 760px;
+  margin: 5px 0 0;
+  color: #6b7280;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.form-card {
+  padding: 20px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 16px;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.wide-table {
+  min-width: 900px;
+}
+
+.field-help {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 12px;
+}
+
 .loading-state {
   padding: 48px 24px;
   text-align: center;
@@ -280,6 +389,19 @@
    admin users are far more likely to be one-thumb scrolling than panning
    a wide table left-right. */
 @media (max-width: 720px) {
+  .section-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wide-table {
+    min-width: 0;
+  }
+
   .table thead {
     display: none;
   }

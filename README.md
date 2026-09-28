@@ -8,6 +8,8 @@ Admin panel for managing the [Articles & Gallery Google Sheet](https://docs.goog
 - **Sponsors** tab — full CRUD for Name / logo (Cloudinary upload, like Gallery) / Status (`current`/`former` dropdown) / Description. Replacing or deleting a logo cleans up the old Cloudinary asset.
 - **Packages** tab — full CRUD for Tier Name / Title / Price / Benefits (one per line) / Image_Set (multiple Cloudinary-uploaded images per package, stored as a comma-separated list of URLs). Removing an image before saving, or deleting the whole package, cleans up the Cloudinary assets.
 - **Rankings** tab — full CRUD for date / ranking (a simple time series).
+- **PSA Records** tab — manages the ranking calculation summary, current/expired/pending tournament points, medical zeros, other ranking zeros, no-penalty withdrawals, and complete match history. Each data type has its own Google Sheet tab, and the public ranking archive reads those tabs automatically.
+- **Site Music** tab — enables/disables the public official YouTube player and manages its title, artist, and video ID. The default is “Hall of Fame” by The Script ft. will.i.am.
 - **Upcoming** tab — full CRUD for Name / Venue / Tournament Size / Start Date / End Date / Tournament Category / Status (`upcoming`/`completed` dropdown) / Finished Position / logo (multiple Cloudinary-uploaded images, comma-separated, like Packages' Image_Set), sheet name `UpcomingTournaments`. Rejects saving if End Date is before Start Date, or if Status is Completed without a Finished Position.
 - **Coach & Club** tab — full CRUD for Name / Image (single Cloudinary upload, like Sponsors) / Profile / Biography, sheet name `Coach&Club`. Its `&` requires quoting in every Sheets API range (`'Coach&Club'!A1:D`) — worth remembering if this tab is ever touched directly. Profile is a list of points, each stored in its own sheet row directly beneath the coach's row (not one cell) — add/remove points in the UI and the backend inserts/deletes the physical rows to match, including a "Delete All Points" shortcut.
 - **Contact** tab — full CRUD for Locations / email / phone numbers, sheet name `Contact`. Phone numbers support multiple entries via "+ Add Phone Number", stored as one comma-separated cell.
@@ -22,8 +24,11 @@ sheet must stay shared as "Anyone with the link can view"). Writes go through
 the Google Sheets API using a service account. Image uploads go directly from
 the browser to Cloudinary via an unsigned upload preset.
 
-There is currently **no login screen** — anyone with the deployed URL can
-edit the sheet. Add auth before sharing the link widely.
+The control panel and every API route require the private owner access code.
+The plain-text code is never included in the browser bundle or GitHub; the
+backend compares its SHA-256 hash using a constant-time check. The code is kept
+only for the current browser session and is removed when **Sign out** is used.
+Set `ADMIN_ACCESS_HASH` to rotate the access code without editing source files.
 
 ## 1. Create a Google service account (write access)
 
@@ -55,6 +60,7 @@ cp .env.example .env
 | `SHEET_ID` | backend | Spreadsheet ID (already filled in) |
 | `GOOGLE_SERVICE_ACCOUNT_EMAIL` | backend | Service account email |
 | `GOOGLE_PRIVATE_KEY` | backend | Service account private key |
+| `ADMIN_ACCESS_HASH` | backend (optional) | SHA-256 hash of a replacement control-panel access code |
 | `CLOUDINARY_CLOUD_NAME` | backend | For server-side deletes |
 | `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` | backend | For server-side deletes |
 | `REACT_APP_CLOUDINARY_CLOUD_NAME` | frontend | For direct browser uploads |

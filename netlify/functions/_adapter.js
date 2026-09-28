@@ -17,6 +17,7 @@ function toNetlifyHandler(handler) {
       method: event.httpMethod,
       query: event.queryStringParameters || {},
       body,
+      headers: event.headers || {},
     };
 
     let statusCode = 200;
