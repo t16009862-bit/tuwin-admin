@@ -17,6 +17,9 @@ export default function Layout() {
           <NavLink to="/bio" className={({ isActive }) => (isActive ? 'active' : '')}>
             Bio
           </NavLink>
+          <NavLink to="/profile-photo" className={({ isActive }) => (isActive ? 'active' : '')}>
+            Profile Photo
+          </NavLink>
           <NavLink to="/sponsors" className={({ isActive }) => (isActive ? 'active' : '')}>
             Sponsors
           </NavLink>

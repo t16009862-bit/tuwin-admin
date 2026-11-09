@@ -17,6 +17,7 @@ import CareerHighlightsPage from './pages/CareerHighlightsPage';
 import CompetencyBlueprintPage from './pages/CompetencyBlueprintPage';
 import TrainingHistoryPage from './pages/TrainingHistoryPage';
 import BiographyPage from './pages/BiographyPage';
+import ProfilePhotoPage from './pages/ProfilePhotoPage';
 import './styles/admin.css';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
             <Route path="/articles" element={<ArticlesPage />} />
             <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/bio" element={<BioPage />} />
+            <Route path="/profile-photo" element={<ProfilePhotoPage />} />
             <Route path="/sponsors" element={<SponsorsPage />} />
             <Route path="/packages" element={<PackagesPage />} />
             <Route path="/rankings" element={<RankingsPage />} />

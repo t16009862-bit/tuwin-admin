@@ -67,6 +67,11 @@ export const updateBio = (row, bio) =>
   request(`/api/bio?row=${row}`, { method: 'PUT', body: JSON.stringify(bio) });
 export const deleteBio = (row) => request(`/api/bio?row=${row}`, { method: 'DELETE' });
 
+// Profile photo
+export const getProfilePhoto = () => request('/api/profile-photo');
+export const updateProfilePhoto = (url) =>
+  request('/api/profile-photo', { method: 'PUT', body: JSON.stringify({ url }) });
+
 // Sponsors
 export const getSponsors = () => request('/api/sponsors');
 export const addSponsor = (sponsor) =>
