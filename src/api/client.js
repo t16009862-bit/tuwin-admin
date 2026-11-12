@@ -80,6 +80,15 @@ export const updateSponsor = (row, sponsor) =>
   request(`/api/sponsors?row=${row}`, { method: 'PUT', body: JSON.stringify(sponsor) });
 export const deleteSponsor = (row) => request(`/api/sponsors?row=${row}`, { method: 'DELETE' });
 
+// Testimonials
+export const getTestimonials = () => request('/api/testimonials');
+export const addTestimonial = (testimonial) =>
+  request('/api/testimonials', { method: 'POST', body: JSON.stringify(testimonial) });
+export const updateTestimonial = (row, testimonial) =>
+  request(`/api/testimonials?row=${row}`, { method: 'PUT', body: JSON.stringify(testimonial) });
+export const deleteTestimonial = (row) =>
+  request(`/api/testimonials?row=${row}`, { method: 'DELETE' });
+
 // Packages
 export const getPackages = () => request('/api/packages');
 export const addPackage = (pkg) =>
