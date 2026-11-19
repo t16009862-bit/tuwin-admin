@@ -8,7 +8,6 @@ import SponsorsPage from './pages/SponsorsPage';
 import PackagesPage from './pages/PackagesPage';
 import RankingsPage from './pages/RankingsPage';
 import RankingRecordsPage from './pages/RankingRecordsPage';
-import SiteMusicPage from './pages/SiteMusicPage';
 import UpcomingPage from './pages/UpcomingPage';
 import CoachClubPage from './pages/CoachClubPage';
 import ContactPage from './pages/ContactPage';
@@ -39,7 +38,6 @@ function App() {
             <Route path="/packages" element={<PackagesPage />} />
             <Route path="/rankings" element={<RankingsPage />} />
             <Route path="/ranking-records" element={<RankingRecordsPage />} />
-            <Route path="/site-music" element={<SiteMusicPage />} />
             <Route path="/upcoming" element={<UpcomingPage />} />
             <Route path="/coach-club" element={<CoachClubPage />} />
             <Route path="/contact" element={<ContactPage />} />

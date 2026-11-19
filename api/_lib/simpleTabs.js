@@ -94,11 +94,6 @@ const TABS = {
     columns: ['date', 'year', 'tournament', 'round', 'opponent', 'score', 'games', 'result'],
   }),
 
-  'site-music': createTabHandler({
-    sheetName: 'SiteMusic',
-    columns: ['enabled', 'title', 'artist', 'youtubeId'],
-  }),
-
   'career-achievements': createTabHandler({
     sheetName: 'CareerAchievements',
     columns: ['Title', 'heading', 'description', 'footer'],

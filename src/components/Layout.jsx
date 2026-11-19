@@ -38,9 +38,6 @@ export default function Layout() {
           <NavLink to="/ranking-records" className={({ isActive }) => (isActive ? 'active' : '')}>
             PSA Records
           </NavLink>
-          <NavLink to="/site-music" className={({ isActive }) => (isActive ? 'active' : '')}>
-            Site Music
-          </NavLink>
           <NavLink to="/upcoming" className={({ isActive }) => (isActive ? 'active' : '')}>
             Upcoming
           </NavLink>

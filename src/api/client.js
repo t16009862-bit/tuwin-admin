@@ -26,7 +26,7 @@ export function clearAdminAccessKey() {
 
 export const verifyAdminAccess = () => request('/api/rankings');
 
-// Shared by the PSA-record and site-music editors. Each resource maps to a
+// Shared by the structured record editors. Each resource maps to a
 // dedicated Google Sheet tab through api/_lib/simpleTabs.js.
 export const getSheetResource = (resource) => request(`/api/${resource}`);
 export const addSheetResource = (resource, entry) =>
