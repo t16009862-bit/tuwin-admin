@@ -27,7 +27,8 @@ async function deleteByUrl(url) {
   if (!publicId) return false;
 
   configureCloudinary();
-  await cloudinary.uploader.destroy(publicId);
+  const resourceType = url.includes('/raw/upload/') ? 'raw' : 'image';
+  await cloudinary.uploader.destroy(publicId, { resource_type: resourceType });
   return true;
 }
 

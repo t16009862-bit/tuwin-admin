@@ -19,6 +19,7 @@ import TrainingHistoryPage from './pages/TrainingHistoryPage';
 import BiographyPage from './pages/BiographyPage';
 import ProfilePhotoPage from './pages/ProfilePhotoPage';
 import TestimonialsPage from './pages/TestimonialsPage';
+import PressKitPage from './pages/PressKitPage';
 import './styles/admin.css';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
             <Route path="/bio" element={<BioPage />} />
             <Route path="/profile-photo" element={<ProfilePhotoPage />} />
             <Route path="/testimonials" element={<TestimonialsPage />} />
+            <Route path="/press-kit" element={<PressKitPage />} />
             <Route path="/sponsors" element={<SponsorsPage />} />
             <Route path="/packages" element={<PackagesPage />} />
             <Route path="/rankings" element={<RankingsPage />} />

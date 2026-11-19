@@ -72,6 +72,11 @@ export const getProfilePhoto = () => request('/api/profile-photo');
 export const updateProfilePhoto = (url) =>
   request('/api/profile-photo', { method: 'PUT', body: JSON.stringify({ url }) });
 
+// Press kit
+export const getPressKit = () => request('/api/press-kit');
+export const updatePressKit = (url) =>
+  request('/api/press-kit', { method: 'PUT', body: JSON.stringify({ url }) });
+
 // Sponsors
 export const getSponsors = () => request('/api/sponsors');
 export const addSponsor = (sponsor) =>
@@ -183,7 +188,7 @@ export const deleteCloudinaryAsset = (url) =>
   request('/api/cloudinary-delete', { method: 'POST', body: JSON.stringify({ url }) });
 
 // Cloudinary — direct unsigned upload from the browser, no backend involved.
-export async function uploadToCloudinary(file, onProgress, folder = 'gallery') {
+export async function uploadToCloudinary(file, onProgress, folder = 'gallery', resourceType = 'image') {
   const cloudName = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
   const uploadPreset = process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET;
   if (!cloudName || !uploadPreset) {
@@ -197,7 +202,7 @@ export async function uploadToCloudinary(file, onProgress, folder = 'gallery') {
 
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`);
+    xhr.open('POST', `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`);
 
     xhr.upload.onprogress = (e) => {
       if (e.lengthComputable && onProgress) onProgress(Math.round((e.loaded / e.total) * 100));
@@ -219,3 +224,6 @@ export async function uploadToCloudinary(file, onProgress, folder = 'gallery') {
     xhr.send(formData);
   });
 }
+
+export const uploadDocumentToCloudinary = (file, onProgress, folder = 'press-kit') =>
+  uploadToCloudinary(file, onProgress, folder, 'auto');

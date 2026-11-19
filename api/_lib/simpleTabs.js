@@ -1,9 +1,12 @@
 const { createTabHandler } = require('./genericCrud');
+const { pressKitHandler } = require('./pressKit');
 
 // Plain CRUD tabs, merged behind a single Vercel serverless function
 // (api/[tab].js) to stay under the Hobby plan's 12-function limit. Each key
 // here is the URL segment used at /api/<key>.
 const TABS = {
+  'press-kit': pressKitHandler,
+
   rankings: createTabHandler({
     sheetName: 'Rankings',
     columns: ['date', 'ranking'],
