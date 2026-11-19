@@ -1,11 +1,53 @@
 const { createTabHandler } = require('./genericCrud');
 const { pressKitHandler } = require('./pressKit');
+const { fetchWorkbook, getSheetRows, SHEET_ID } = require('./sheet');
+const { getSheetsClient } = require('./sheetsClient');
+const { requireAdmin } = require('./auth');
+
+async function profilePhotoHandler(req, res) {
+  if (!requireAdmin(req, res)) return;
+
+  try {
+    if (req.method === 'GET') {
+      const workbook = await fetchWorkbook();
+      const row = getSheetRows(workbook, 'Bio')[0];
+      return res.status(200).json({ url: String(row?.['Profile Image'] || '').trim() });
+    }
+
+    if (req.method === 'PUT') {
+      const url = String(req.body?.url || '').trim();
+      if (!/^https:\/\/res\.cloudinary\.com\//i.test(url)) {
+        return res.status(400).json({ error: 'Please upload an image before saving' });
+      }
+
+      const sheets = getSheetsClient();
+      await sheets.spreadsheets.values.batchUpdate({
+        spreadsheetId: SHEET_ID,
+        requestBody: {
+          valueInputOption: 'RAW',
+          data: [
+            { range: 'Bio!F1', values: [['Profile Image']] },
+            { range: 'Bio!F2', values: [[url]] },
+          ],
+        },
+      });
+      return res.status(200).json({ ok: true, url });
+    }
+
+    res.setHeader('Allow', 'GET, PUT');
+    return res.status(405).json({ error: 'Method not allowed' });
+  } catch (err) {
+    console.error('profile photo handler error:', err);
+    return res.status(500).json({ error: err.message || 'Internal error' });
+  }
+}
 
 // Plain CRUD tabs, merged behind a single Vercel serverless function
 // (api/[tab].js) to stay under the Hobby plan's 12-function limit. Each key
 // here is the URL segment used at /api/<key>.
 const TABS = {
   'press-kit': pressKitHandler,
+  'profile-photo': profilePhotoHandler,
 
   rankings: createTabHandler({
     sheetName: 'Rankings',
