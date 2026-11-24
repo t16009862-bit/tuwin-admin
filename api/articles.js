@@ -3,7 +3,7 @@ const { getSheetsClient, getTabId } = require('./_lib/sheetsClient');
 const { requireAdmin } = require('./_lib/auth');
 
 const SHEET_NAME = 'Articles';
-const COLUMNS = ['category', 'source', 'date', 'title', 'description', 'link_text', 'url'];
+const COLUMNS = ['category', 'source', 'date', 'title', 'description', 'link_text', 'url', 'image_url', 'article_slug'];
 
 function rowToValues(body) {
   return COLUMNS.map((key) => (body[key] ?? '').toString());
@@ -22,7 +22,7 @@ module.exports = async function handler(req, res) {
       const sheets = getSheetsClient();
       await sheets.spreadsheets.values.append({
         spreadsheetId: SHEET_ID,
-        range: `${SHEET_NAME}!A:G`,
+        range: `${SHEET_NAME}!A:I`,
         // RAW stores every field exactly as given (plain text), instead of
         // letting Sheets try to auto-parse the date field, which round-trips
         // through the spreadsheet's locale and can shift it by a day.
@@ -39,7 +39,7 @@ module.exports = async function handler(req, res) {
       const sheets = getSheetsClient();
       await sheets.spreadsheets.values.update({
         spreadsheetId: SHEET_ID,
-        range: `${SHEET_NAME}!A${row}:G${row}`,
+        range: `${SHEET_NAME}!A${row}:I${row}`,
         // RAW stores every field exactly as given (plain text), instead of
         // letting Sheets try to auto-parse the date field, which round-trips
         // through the spreadsheet's locale and can shift it by a day.
